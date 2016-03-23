@@ -1,9 +1,10 @@
-FROM ubuntu:14.04
+FROM ubuntu:15.04
 
-ENV VERSION_MESOS=0.27.2-2.0.15.ubuntu1404
+ENV VERSION_MESOS 0.28.0-2.0.16.ubuntu1504
 
-RUN echo "deb http://repos.mesosphere.io/ubuntu/ trusty main" > /etc/apt/sources.list.d/mesosphere.list && \
-  apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
-  apt-get -y update && \
-  apt-get -y install mesos=$VERSION_MESOS && \
-  apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF \
+	&& echo "deb http://repos.mesosphere.io/ubuntu vivid main" >> /etc/apt/sources.list.d/mesosphere.list \
+	&& apt-get update \
+	&& apt-get install -y mesos=${VERSION_MESOS} \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/*
